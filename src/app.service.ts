@@ -30,7 +30,7 @@ export class AppService {
     return response;
   }
   async triggerAxios(options: any) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       axios(options)
         .then((response) => {
           resolve({
@@ -41,10 +41,14 @@ export class AppService {
           });
         })
         .catch((error) => {
-          reject(error);
+          // global.console.log('response', );
+          resolve({
+            success: false,
+            data: error?.response?.data || error.toString(),
+            status: error?.response?.status || 404,
+            headers: error?.response?.headers,
+          });
         });
     });
   }
 }
-
-

@@ -35,6 +35,8 @@ export class AppService {
             options.httpsAgent = httpsAgent;
         }
 
+        global.console.log('options', options);
+
         return new Promise((resolve) => {
             axios(options)
                 .then((response) => {

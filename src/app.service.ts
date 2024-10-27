@@ -36,8 +36,6 @@ export class AppService {
         }
         options.maxBodyLength = Infinity;
 
-        global.console.log('options', options);
-
         return new Promise((resolve) => {
             axios.request(options)
                 .then((response) => {

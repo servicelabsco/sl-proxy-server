@@ -34,11 +34,12 @@ export class AppService {
             });
             options.httpsAgent = httpsAgent;
         }
+        options.maxBodyLength = Infinity;
 
         global.console.log('options', options);
 
         return new Promise((resolve) => {
-            axios(options)
+            axios.request(options)
                 .then((response) => {
                     resolve({
                         success: true,

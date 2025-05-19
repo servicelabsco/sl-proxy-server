@@ -22,14 +22,15 @@ export class AppService {
     }
 
     async triggerAxios(options: any) {
-        if (options?.httpsAgent?.cert) {
-            const { cert, key, passphrase } = options.httpsAgent;
+        if (options?.httpsAgent?.cert || options?.httpsAgent?.pfx) {
+            const { cert, key, passphrase, pfx } = options.httpsAgent;
             delete options.httpsAgent;
 
             const httpsAgent = new https.Agent({
                 cert,
                 key,
                 passphrase,
+                pfx,
                 rejectUnauthorized: true,
             });
             options.httpsAgent = httpsAgent;

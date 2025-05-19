@@ -26,14 +26,17 @@ export class AppService {
             const { cert, key, passphrase, pfx } = options.httpsAgent;
             delete options.httpsAgent;
 
-            const httpsAgent = new https.Agent({
-                cert,
-                key,
-                passphrase,
-                pfx,
-                rejectUnauthorized: true,
-            });
-            options.httpsAgent = httpsAgent;
+            const agent: any = {};
+
+            if (cert) agent.cert = cert;
+            if (key) agent.key = key;
+            if (passphrase) agent.passphrase = passphrase;
+            if (pfx) agent.pfx = Buffer.from(pfx, 'base64');
+
+            agent.rejectUnauthorized = true;
+
+            const httpsAgent = new https.Agent(agent);
+            options.httpsAgent = httpsAgent
         }
         options.maxBodyLength = Infinity;
 
